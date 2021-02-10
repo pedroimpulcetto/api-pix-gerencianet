@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+chain-pix-prod.crt
+src/certificado.pem
+src/prod281691.p12
+.vscode
+test.jpg
