@@ -1,0 +1,11 @@
+version: "3.4"
+
+services:
+  pix:
+    image: pix/gerencianet:latest
+    container_name: api-pix-gerencianet
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"

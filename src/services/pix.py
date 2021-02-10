@@ -62,6 +62,8 @@ class PixService():
         
         response = requests.put(f'{URL_ROOT_PROD}/v2/cob/{txid}', data=json.dumps(payload), headers=self.headers, cert=CERTIFICADO)
 
+        print(response.content)
+
         if response.status_code == 201:
             return json.loads(response.content)
 
