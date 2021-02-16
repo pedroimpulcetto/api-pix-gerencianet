@@ -7,13 +7,10 @@ from services.pix import PixService
 api = server.api
 
 
-@api.route('/orders', methods=['POST'])
-class Pix(Resource):
+@api.route('/token', methods=['POST'])
+class Token(Resource):
 
     def post(self, ):
-        data = request.json
-        txid = data.pop('txid')
-
         pix_service = PixService()
-        response = pix_service.create_cobranca(txid, data)
+        response = pix_service.get_token()
         return response

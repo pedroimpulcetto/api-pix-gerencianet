@@ -27,8 +27,8 @@ class PixService():
             'Content-Type': 'application/json'
         }
 
-        payload={"grant_type": "client_credentials"}
-        
+        payload = {"grant_type": "client_credentials"}
+
         response = requests.post(
             f'{URL_ROOT_PROD}/oauth/token',
             headers=headers,
@@ -39,10 +39,10 @@ class PixService():
         return json.loads(response.content)['access_token']
 
     def create_qrcode(self, location_id):
-        response = requests.get(f'{URL_ROOT_PROD}/v2/loc/{location_id}/qrcode', headers=self.headers, cert=CERTIFICADO)
+        response = requests.get(
+            f'{URL_ROOT_PROD}/v2/loc/{location_id}/qrcode', headers=self.headers, cert=CERTIFICADO)
 
         return json.loads(response.content)
-
 
     def qrcode_generator(self, location_id):
         qrcode = self.create_qrcode(location_id)
@@ -57,12 +57,10 @@ class PixService():
 
         return send_file(img_io, mimetype='image/jpeg', as_attachment=False, attachment_filename='testeimageqrcod.jpg')
 
-
     def create_order(self, txid, payload):
-        
-        response = requests.put(f'{URL_ROOT_PROD}/v2/cob/{txid}', data=json.dumps(payload), headers=self.headers, cert=CERTIFICADO)
 
-        print(response.content)
+        response = requests.put(f'{URL_ROOT_PROD}/v2/cob/{txid}',
+                                data=json.dumps(payload), headers=self.headers, cert=CERTIFICADO)
 
         if response.status_code == 201:
             return json.loads(response.content)
@@ -73,7 +71,3 @@ class PixService():
         location_id = self.create_order(txid, payload).get('loc').get('id')
         qrcode = self.qrcode_generator(location_id)
         return qrcode
-
-        
-        
-        
